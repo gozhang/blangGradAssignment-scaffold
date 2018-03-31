@@ -33,34 +33,26 @@ public class PermutationSampler implements Sampler {
   public void execute(Random rand) {
     // Fill this. 
 	
-	// permutation.getConnections(); 
-	List<Integer> currentConnections = permutation.getConnections(); 
-	System.out.println("Current stats is: \n \n \n" + currentConnections); 
-	ArrayList<Integer> deepCurrentConnections = new ArrayList<Integer>(currentConnections); 
+	List<Integer> CurrentConnections = permutation.getConnections(); 
+	ArrayList<Integer> deepcopyCurrentConnections = new ArrayList<Integer>(CurrentConnections); 
 	
-	double currentDensity = logDensity(); 
-	System.out.println(currentDensity); 
+	final double CurrentDensity = logDensity(); 
+	// System.out.println(CurrentDensity); 
 	
 	permutation.sampleUniform(rand); 
-	List<Integer> nextConnections = permutation.getConnections(); 
+	List<Integer> NextConnections = permutation.getConnections(); 
 	
-	double newDensity = logDensity(); 
-	System.out.println(newDensity); 
+	final double NextDensity = logDensity(); 
+	// System.out.println(NextDensity); 
 	
-	double alpha = Math.min(1, Math.exp(newDensity)/Math.exp(currentDensity)); 
-	double u = Math.random(); 
-	if (u <= alpha) {
-		for (int i = 0; i < nextConnections.size(); i ++) { 
-			deepCurrentConnections.set(i, nextConnections.get(i)); 
+	final double probab = Math.min(1, Math.exp(NextDensity)/Math.exp(CurrentDensity)); 
+	boolean bern = Generators.bernoulli(rand, probab); 
+	if (!bern) {
+		for (int i = 0; i < deepcopyCurrentConnections.size(); i ++) { 
+			permutation.getConnections().set(i, deepcopyCurrentConnections.get(i)); 
 		} 
-		System.out.println("Next stats is: \n \n \n" + permutation.getConnections()); 
-	} else {
-		for (int i = 0; i < deepCurrentConnections.size(); i ++) { 
-			deepCurrentConnections.set(i, deepCurrentConnections.get(i)); 
-		} 
-		System.out.println(permutation.getConnections()); 
+		// System.out.println("Next stats is: \n \n \n" + permutation.getConnections()); 
 	} 
-	
 
   }
   
