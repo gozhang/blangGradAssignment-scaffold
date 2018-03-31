@@ -181,3 +181,4 @@ Use a new nextflow pipeline based on ``permuted-clustering.nf``.
 Do not forget to push to github at the end and to check the Travis tests behave as expected (if they don't you should get a email). 
 
 
+[![Build Status](https://travis-ci.org/gozhang/blangGradAssignment-scaffold.png?branch=master)](https://travis-ci.org/gozhang/blangGradAssignment-scaffold) 
