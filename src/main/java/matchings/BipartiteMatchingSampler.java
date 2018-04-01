@@ -1,5 +1,6 @@
 package matchings;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import bayonet.distributions.Multinomial;
@@ -30,6 +31,29 @@ public class BipartiteMatchingSampler implements Sampler {
   @Override
   public void execute(Random rand) {
     // Fill this. 
+	// Similar to the filled code in PermutationSampler, but now sample from non-perfect matching 
+	// Refer to the file for the data structure: BipartiteMatching.xtend 
+	  
+	  List<Integer> CurrentConnections = matching.getConnections(); 
+		ArrayList<Integer> deepcopyCurrentConnections = new ArrayList<Integer>(CurrentConnections); 
+		
+		final double CurrentDensity = logDensity(); 
+		// System.out.println(CurrentDensity); 
+		
+		matching.sampleUniform(rand); 
+		List<Integer> NextConnections = matching.getConnections(); 
+		
+		final double NextDensity = logDensity(); 
+		// System.out.println(NextDensity); 
+		
+		final double probab = Math.min(1, Math.exp(NextDensity)/Math.exp(CurrentDensity)); 
+		boolean bern = Generators.bernoulli(rand, probab); 
+		if (!bern) {
+			for (int i = 0; i < deepcopyCurrentConnections.size(); i ++) { 
+				matching.getConnections().set(i, deepcopyCurrentConnections.get(i)); 
+			} 
+			// System.out.println("Next state is: \n \n \n" + permutation.getConnections()); 
+		} 
   }
   
   private double logDensity() {

@@ -32,6 +32,7 @@ public class PermutationSampler implements Sampler {
   @Override
   public void execute(Random rand) {
     // Fill this. 
+	// Refer to the file: Permutation.xtend 
 	
 	List<Integer> CurrentConnections = permutation.getConnections(); 
 	ArrayList<Integer> deepcopyCurrentConnections = new ArrayList<Integer>(CurrentConnections); 
@@ -51,7 +52,7 @@ public class PermutationSampler implements Sampler {
 		for (int i = 0; i < deepcopyCurrentConnections.size(); i ++) { 
 			permutation.getConnections().set(i, deepcopyCurrentConnections.get(i)); 
 		} 
-		// System.out.println("Next stats is: \n \n \n" + permutation.getConnections()); 
+		// System.out.println("Next state is: \n \n \n" + permutation.getConnections()); 
 	} 
 
   }
