@@ -3,8 +3,8 @@ package matchings
 import matchings.Permutation
 
 model PermutedClustering {
-  param Integer nGroups
-  param Integer groupSize
+  param Integer nGroups // 20 games  
+  param Integer groupSize // 5 players 
   random List<RealVar> means ?: latentRealList(groupSize)
   random List<RealVar> variances ?: latentRealList(groupSize)
   random List<Permutation> permutations ?: {
@@ -17,5 +17,32 @@ model PermutedClustering {
   
   laws {
     // Fill this. 
+    
+    // First set of parameters 
+    means.get(0) ~ ContinuousUniform(0.0,1.0) 
+    variances.get(0) ~ Exponential(10.0) 
+    
+    // The next four sets of parameters 
+    for (int i : 1 ..< groupSize) { 
+    	    // uniform increments based on the previous mean 
+    		means.get(i) | RealVar previous = means.get(i-1) ~ ContinuousUniform(previous,1.0+previous) 
+    		// same variance 
+    		variances.get(i) ~ Exponential(10.0)
+    }
+    
+    // Specify the distribution of permutations of sets of parameters to be Uniform 
+    for (Permutation permutation : permutations){
+    	permutation ~ UniformPermutation     
+    }
+    	
+    // Observations are in the form of data matrix, dim = 20 \times 5 
+	for (int GameIndex : 0 ..< nGroups) {
+		for (int ScoreIndex : 0 ..< groupSize){ 
+		  // Correspond each score in each game to the set of parameters, which is uniformly permuted 
+	      observations.getRealVar(GameIndex, ScoreIndex) |
+	        means, variances, IntVar ParaIndex = permutations.get(GameIndex).getConnections().get(ScoreIndex)      
+	        ~ Normal(means.get(ParaIndex), variances.get(ParaIndex)) // Normal Model 
+	    }
+	} 
   }
 }
