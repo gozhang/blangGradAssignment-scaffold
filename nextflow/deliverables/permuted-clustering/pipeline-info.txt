@@ -1,0 +1,4 @@
+scriptName: permuted-clustering.nf
+start: Sun Apr 01 16:48:21 PDT 2018
+runName: special_spence
+nextflow.version: 0.28.0

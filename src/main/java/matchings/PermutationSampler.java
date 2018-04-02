@@ -46,7 +46,7 @@ public class PermutationSampler implements Sampler {
 	final double NextDensity = logDensity(); 
 	// System.out.println(NextDensity); 
 	
-	final double probab = Math.min(1, Math.exp(NextDensity)/Math.exp(CurrentDensity)); 
+	final double probab = Math.min(1.0, Math.exp(NextDensity)/Math.exp(CurrentDensity)); 
 	boolean bern = Generators.bernoulli(rand, probab); 
 	if (!bern) {
 		for (int i = 0; i < deepcopyCurrentConnections.size(); i ++) { 
