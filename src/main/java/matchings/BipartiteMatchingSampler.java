@@ -40,6 +40,7 @@ public class BipartiteMatchingSampler implements Sampler {
 		final double CurrentDensity = logDensity(); 
 		// System.out.println(CurrentDensity); 
 		
+		// Perform "independence" Uniform sampling, which is available in BipartiteMatching.xtend 
 		matching.sampleUniform(rand); 
 		List<Integer> NextConnections = matching.getConnections(); 
 		

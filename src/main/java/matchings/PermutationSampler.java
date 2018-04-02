@@ -40,6 +40,7 @@ public class PermutationSampler implements Sampler {
 	final double CurrentDensity = logDensity(); 
 	// System.out.println(CurrentDensity); 
 	
+	// Perform "independence" Uniform sampling, which is available in Permutation.xtend 
 	permutation.sampleUniform(rand); 
 	List<Integer> NextConnections = permutation.getConnections(); 
 	

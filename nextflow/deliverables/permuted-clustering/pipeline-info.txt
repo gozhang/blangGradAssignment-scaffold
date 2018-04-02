@@ -1,4 +1,4 @@
 scriptName: permuted-clustering.nf
-start: Sun Apr 01 16:48:21 PDT 2018
-runName: special_spence
+start: Sun Apr 01 20:25:33 PDT 2018
+runName: golden_blackwell
 nextflow.version: 0.28.0
