@@ -1,4 +1,4 @@
 scriptName: permuted-clustering.nf
-start: Wed Apr 04 17:06:54 PDT 2018
-runName: adoring_swirles
+start: Wed Apr 04 21:46:20 PDT 2018
+runName: infallible_kimura
 nextflow.version: 0.28.0
