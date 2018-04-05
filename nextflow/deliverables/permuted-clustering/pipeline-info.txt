@@ -1,4 +1,4 @@
 scriptName: permuted-clustering.nf
-start: Sun Apr 01 20:25:33 PDT 2018
-runName: golden_blackwell
+start: Wed Apr 04 17:06:54 PDT 2018
+runName: adoring_swirles
 nextflow.version: 0.28.0
