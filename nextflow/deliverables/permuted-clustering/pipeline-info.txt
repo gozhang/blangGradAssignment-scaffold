@@ -1,4 +1,4 @@
 scriptName: permuted-clustering.nf
-start: Thu Apr 05 00:58:03 PDT 2018
-runName: condescending_perlman
+start: Thu Apr 05 01:15:47 PDT 2018
+runName: trusting_kowalevski
 nextflow.version: 0.28.0
