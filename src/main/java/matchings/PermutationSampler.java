@@ -54,9 +54,9 @@ public class PermutationSampler implements Sampler {
 //	System.out.println(index2); 
 	Collections.swap(permutation.getConnections(), index1, index2); 
 	
-	// Proposed State 
-	List<Integer> ProposedState = permutation.getConnections(); 
-//	System.out.println("Next State is: " + ProposedState); 
+//	// Proposed State 
+//	List<Integer> ProposedState = permutation.getConnections(); 
+////	System.out.println("Next State is: " + ProposedState); 
 	
 	// Find the log density of the proposed state 
 	final double NextDensity = logDensity(); 
