@@ -94,8 +94,9 @@ public class BipartiteMatchingSampler implements Sampler {
 		// Randomly select one vertex from the current state 
 		int Index_Position = rand.nextInt(matching.getConnections().size()); 
 		
+		// Make the list of all possible vertices to be proposed 
 		ArrayList<Integer> PossibleVertices = new ArrayList<Integer>(); 
-				
+		
 		for (int i=0; i < matching.getConnections().size(); i++) {
 			if (!CurrentStateDeepCopy.contains(i)) {PossibleVertices.add(i);} 
 		} 
@@ -109,7 +110,7 @@ public class BipartiteMatchingSampler implements Sampler {
 		// Randomly select one from the list of all possible vertices 
 		int Index_Vertex = rand.nextInt(PossibleVertices.size()); 
 
-		// Make the swap
+		// Make the proposal move 
 		matching.getConnections().set(Index_Position, PossibleVertices.get(Index_Vertex)); 
 		
 		double NextDensity = logDensity(); 
@@ -121,11 +122,14 @@ public class BipartiteMatchingSampler implements Sampler {
 		
 		// Ratio in the MH Algorithm 
 //		double q_ratio = ProposalDensityUp/ProposalDensityDown;
-		double pi_ratio = Math.exp(NextDensity)/Math.exp(CurrentDensity);
+//		double pi_ratio = Math.exp(NextDensity)/Math.exp(CurrentDensity);
 //		double ratio = pi_ratio*q_ratio; 
 		
+		// Ratio in the MH Algorithm 
+		double ratio = Math.exp(NextDensity)/Math.exp(CurrentDensity);
+		
 		// Define the acceptance probability 
-		double AcceptProb = Math.min(1.0, pi_ratio); 
+		double AcceptProb = Math.min(1.0, ratio); 
 //		System.out.println("Acceptance probability is: " + AcceptProb); 
 		
 		// Generate a Uniform [0, 1] random variable 
@@ -142,7 +146,7 @@ public class BipartiteMatchingSampler implements Sampler {
 		
 		if (AcceptProb < u) { // Rejection step 
 			for (int i = 0; i < CurrentStateDeepCopy.size(); i ++) { 
-				matching.getConnections().set(i, CurrentStateDeepCopy.get(i)); 
+				matching.getConnections().set(i, CurrentStateDeepCopy.get(i)); // Recover to the previous state 
 			} 
 			// System.out.println("Next state is: \n \n \n" + permutation.getConnections()); 
 		} 
@@ -156,12 +160,12 @@ public class BipartiteMatchingSampler implements Sampler {
     return sum;
   }
   
-  // Define the factorial function 
-  private static double factorial(int N) {
-	  double multi = 1;
-	  for (int i = 1; i <= N; i++) {
-		  multi = multi*i;
-	  }
-	  return multi;
-  }
+//  // Define the factorial function 
+//  private static double factorial(int N) {
+//	  double multi = 1;
+//	  for (int i = 1; i <= N; i++) {
+//		  multi = multi*i;
+//	  }
+//	  return multi;
+//  }
 }
